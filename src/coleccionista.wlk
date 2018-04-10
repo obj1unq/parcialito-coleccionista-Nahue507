@@ -66,8 +66,46 @@
 
 // PUNTO 1: COLECCIONES
 object coleccionista {
-	
-	//TODO: Completar la implementacion de este objeto		
+ var property galeria=[]
+ 
+ method agregarElemento(unElemento){
+ 	galeria.add(unElemento)
+ }
+ method quitarElemento(unElemento){
+ 	galeria.remove(unElemento)
+ }
+method objetosFragiles(){
+	return self.galeria().filter({objeto=>objeto.esFragil()})
+}
+method objetoFragilMasCaro(){
+	return self.objetosFragiles().max({objeto=>objeto.valor()})
+}
+method valorEnObjetosFragiles(){
+	return self.objetosFragiles().sum({objeto=> objeto.valor()})
+}
+method objetosDeCategoria(unaCategoria){
+	return self.galeria().filter({objeto=>objeto.categoria()==unaCategoria})
+}
+method valorEnCategoria(unaCategoria){
+	return self.objetosDeCategoria(unaCategoria).sum({objeto=>objeto.valor()})
+}
+method existeElementoDe(unaCategoria){
+	return self.galeria().any({objeto=>objeto.categoria()==unaCategoria})
+}
+method todosValiosos(){
+	return self.galeria().all({objeto=>objeto.valor()>600})
+}
+method categorias(){
+	var categoriasExistentes=#{}
+	if(self.existeElementoDe(juguete)){
+		categoriasExistentes.add(juguete)
+	}
+	if(self.existeElementoDe(musica)){
+		categoriasExistentes.add(musica)
+	}
+	return categoriasExistentes.asList()
+}
+
 
 }
 
@@ -108,8 +146,72 @@ object musica {
 
 // PUNTO 2: POLIMORFISMO. 
 object guitarraElectrica {
-   //TODO Completar la implementacion de este objeto
+  var  estuche
+  var  microfono
+  method esFragil()=estuche.esFragil()
+  method valor()=10000+microfono.valor()
+  method categoria()=musica
+  method llevaEstuche(unEstuche){
+  	estuche=unEstuche
+  }
+  method llevoMicrofono(unMicro){
+  	microfono=unMicro
+  }
 }
 
-//TODO: agregar los objetos que falten! Si no agregaste ninguno repensá tu solución; pista: el punto se llama "POLIMORFISMO" 
+object microfonoOficial{
+	var property estuche
+	var property microfonos={}
+	method valor()=1000
+	method categoria()=musica
+	method esFragil()=guitarraElectrica.esFragil()
+	method llevaEstuche(unEstuche){
+  	estuche=unEstuche
+  }
+   method llevoMicrofono(unMicro){
+  	microfonos.add(unMicro)
+  }
+}
+
+object microfonoDeApoyo{
+	var property estuche
+	var property microfonos={}
+	method valor()=800
+	method categoria()=musica
+	method esFragil()=guitarraElectrica.esFragil()
+	method llevaEstuche(unEstuche){
+  	estuche=unEstuche
+  }
+   method llevoMicrofono(unMicro){
+  	microfonos.add(unMicro)
+  }
+}
+object estucheFlexible{
+	var property estuche
+	var property microfonos={}
+	method esFragil()=true
+	method categoria()=musica
+	method valor()=0
+	method llevaEstuche(unEstuche){
+  	estuche=unEstuche
+  }
+   method llevoMicrofono(unMicro){
+  	microfonos.add(unMicro)
+  }
+}
+object estucheRigido{
+	var property estuche
+	var property microfonos={}
+	method esFregil()=false
+	method categoria()=musica
+	method valor()=0
+	method llevaEstuche(unEstuche){
+  	estuche=unEstuche
+  }
+   method llevoMicrofono(unMicro){
+  	microfonos.add(unMicro)
+  }
+}
+
+
 

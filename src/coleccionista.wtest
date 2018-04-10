@@ -41,7 +41,7 @@ describe "tests del coleccionista "{
 		assert.that(coleccionista.existeElementoDe(juguete))
 		assert.notThat(coleccionista.existeElementoDe(musica))
 	}
-	
+	//El enunciado dice que espera la categoria que posea un elemento pero en el teste espera una coleccion con el nombre de la categoria 
 	test "categorias" {
 		assert.equals(#{juguete, musica}, coleccionista.categorias())
 	}
@@ -51,6 +51,7 @@ describe "tests del coleccionista "{
 		coleccionista.quitarElemento(cassetteCantaninio)
 		assert.equals(#{juguete}, coleccionista.categorias())
 	}
+	
 	
 	test "todos valiososo (no) " {
 		assert.notThat(coleccionista.todosValiosos())
